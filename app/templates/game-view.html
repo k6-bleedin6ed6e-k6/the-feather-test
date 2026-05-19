@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}session {{ room_code }} — the feather test{% endblock %}
+
+{% block content %}
+<div class="game-layout">
+
+  <!-- sidebar -->
+  <aside class="game-sidebar">
+    <div class="sidebar-label">session</div>
+    <div class="room-code">{{ room_code }}</div>
+    <p class="sidebar-hint">Share this code with your human bird.</p>
+
+    <div class="round-counter">
+      round <span id="round-num">0</span> / 5
+    </div>
+
+    <div class="bird-status">
+      <div class="status-dot" id="bird-status-dot"></div>
+      <span id="bird-status-text">waiting for bird…</span>
+    </div>
+
+    <div id="guess-section" class="guess-section hidden">
+      <div class="sidebar-label">your verdict</div>
+      <p>Which one was the AI?</p>
+      <button class="btn btn-secondary guess-btn" data-guess="A">Bird A was the AI</button>
+      <button class="btn btn-secondary guess-btn" data-guess="B">Bird B was the AI</button>
+    </div>
+  </aside>
+
+  <!-- main chat area -->
+  <div class="chat-area">
+    <div class="lanes">
+      <div class="lane" id="lane-a">
+        <div class="lane-header">Bird A</div>
+        <div class="lane-log" id="log-a"></div>
+      </div>
+      <div class="lane" id="lane-b">
+        <div class="lane-header">Bird B</div>
+        <div class="lane-log" id="log-b"></div>
+      </div>
+    </div>
+
+    <div class="question-bar" id="question-bar">
+      <input
+        type="text"
+        id="question-input"
+        placeholder="ask the birds something…"
+        autocomplete="off"
+        spellcheck="false"
+        disabled
+      />
+      <button id="send-btn" class="btn btn-primary" disabled>send call →</button>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const ROOM_CODE = "{{ room_code }}";
+  const TOTAL_ROUNDS = 5;
+</script>
+<script src="{{ url_for('static', filename='js/chat-ui.js') }}"></script>
+{% endblock %}

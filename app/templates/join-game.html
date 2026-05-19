@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}join as bird — the feather test{% endblock %}
+
+{% block content %}
+<div class="panel center-panel">
+  <div class="panel-label">human bird entry</div>
+  <h2>enter the aviary</h2>
+  <p>You have a room code. Enter it below and you'll receive your questions.</p>
+  {% if error %}
+    <div class="alert-error">{{ error }}</div>
+  {% endif %}
+  <form action="/join" method="POST" class="join-form">
+    <input
+      type="text"
+      name="room_code"
+      placeholder="room code (e.g. AX7K2)"
+      maxlength="5"
+      autocomplete="off"
+      autocapitalize="characters"
+      spellcheck="false"
+      class="code-input"
+      required
+    />
+    <button type="submit" class="btn btn-primary">enter →</button>
+  </form>
+  <p class="hint">You'll be answering as a bird. Stay in character. The ornithologist is watching.</p>
+</div>
+{% endblock %}

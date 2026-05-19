@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}reveal — the feather test{% endblock %}
+
+{% block content %}
+<div class="reveal-layout">
+  <div class="reveal-badge {% if judge_correct %}reveal-correct{% else %}reveal-fooled{% endif %}">
+    {% if judge_correct %}
+      🔭 correct identification
+    {% else %}
+      🪶 you were fooled
+    {% endif %}
+  </div>
+
+  <h1 class="reveal-heading">
+    {% if judge_correct %}
+      You spotted the AI.
+    {% else %}
+      The {{ species.name }} fooled you.
+    {% endif %}
+  </h1>
+
+  <div class="reveal-detail">
+    <div class="reveal-species-card">
+      <div class="panel-label">the ai bird</div>
+      <div class="species-name">{{ species.name }}</div>
+      <div class="species-sci">{{ species['scientific-name'] }}</div>
+      <p class="species-personality">{{ species.personality }}</p>
+      <div class="species-assignment">
+        AI was <strong>Bird {{ 'B' if human_is_bird_a else 'A' }}</strong>
+        &nbsp;·&nbsp;
+        Human was <strong>Bird {{ 'A' if human_is_bird_a else 'B' }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal-leaderboard">
+    <div class="panel-label">fool rate by species</div>
+    {% if leaderboard %}
+      <table class="lb-table">
+        <thead>
+          <tr>
+            <th>species</th>
+            <th>games</th>
+            <th>times fooled</th>
+            <th>fool rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in leaderboard %}
+          <tr {% if row.species == species_id %}class="lb-current"{% endif %}>
+            <td>{{ row.species }}</td>
+            <td>{{ row.total_games }}</td>
+            <td>{{ row.times_fooled }}</td>
+            <td>{{ row.fool_rate }}%</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="dim">no data yet — this is the first game.</p>
+    {% endif %}
+  </div>
+
+  <div class="reveal-actions">
+    <form action="/create" method="POST">
+      <button type="submit" class="btn btn-primary">play again →</button>
+    </form>
+    <a href="/" class="btn btn-secondary">back to home</a>
+  </div>
+</div>
+{% endblock %}

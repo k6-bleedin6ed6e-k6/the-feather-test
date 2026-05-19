@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}create session — the feather test{% endblock %}
+
+{% block content %}
+<div class="panel center-panel">
+  <div class="panel-label">new session</div>
+  <h2>convene the ornithologist</h2>
+  <p>A species will be assigned at random. Share the room code with your human bird once the session opens.</p>
+  <form action="/create" method="POST">
+    <button type="submit" class="btn btn-primary">assign species &amp; open room →</button>
+  </form>
+</div>
+{% endblock %}

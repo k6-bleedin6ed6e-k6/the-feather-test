@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}the feather test — can you spot the AI?{% endblock %}
+
+{% block content %}
+<div class="hero">
+  <div class="hero-label">ornithology lab // interactive session</div>
+  <h1>the feather test</h1>
+  <p class="hero-sub">
+    A Turing test — but everyone is a bird.<br />
+    Two respondents answer your questions.<br />
+    One is a human pretending. One is an AI locked into a species.<br />
+    You decide which is which.
+  </p>
+
+  <div class="hero-roles">
+    <div class="role-card">
+      <div class="role-icon">🔭</div>
+      <div class="role-label">ornithologist</div>
+      <div class="role-desc">You ask the questions and judge which bird is the AI.</div>
+      <form action="/create" method="POST">
+        <button type="submit" class="btn btn-primary">start a session →</button>
+      </form>
+    </div>
+    <div class="role-divider">or</div>
+    <div class="role-card">
+      <div class="role-icon">🪶</div>
+      <div class="role-label">bird (human)</div>
+      <div class="role-desc">You got a room code. Enter it and answer in character.</div>
+      <a href="/join" class="btn btn-secondary">join as bird →</a>
+    </div>
+  </div>
+
+  <div class="hero-footer">
+    <a href="/leaderboard">leaderboard — which species fools people most?</a>
+  </div>
+</div>
+{% endblock %}

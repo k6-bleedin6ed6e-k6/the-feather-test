@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}leaderboard — the feather test{% endblock %}
+
+{% block content %}
+<div class="panel center-panel">
+  <div class="panel-label">fool rate by species</div>
+  <h2>leaderboard</h2>
+  <p>Which bird convinces ornithologists it's human most often?</p>
+
+  {% if leaderboard %}
+    <table class="lb-table">
+      <thead>
+        <tr>
+          <th>species</th>
+          <th>games played</th>
+          <th>times fooled judge</th>
+          <th>fool rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in leaderboard %}
+        <tr>
+          <td>{{ row.species }}</td>
+          <td>{{ row.total_games }}</td>
+          <td>{{ row.times_fooled }}</td>
+          <td>{{ row.fool_rate }}%</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="dim">no games completed yet.</p>
+  {% endif %}
+
+  <div style="margin-top: 2rem;">
+    <form action="/create" method="POST">
+      <button type="submit" class="btn btn-primary">start a session →</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
