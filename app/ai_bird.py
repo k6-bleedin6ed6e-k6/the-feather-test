@@ -1,6 +1,6 @@
 import json
 import os
-import anthropic
+from groq import Groq
 
 _client = None
 _species_roster = None
@@ -11,7 +11,7 @@ SPECIES_CONFIG_PATH = os.path.join(os.path.dirname(__file__), 'species', 'specie
 def _get_client():
     global _client
     if _client is None:
-        _client = anthropic.Anthropic(api_key=os.getenv('ANTHROPIC_API_KEY'))
+        _client = Groq(api_key=os.getenv('GROQ_API_KEY'))
     return _client
 
 
@@ -33,7 +33,7 @@ def load_species(species_name):
 
 def get_bird_response(species_name, question, history=None):
     """
-    Calls Claude with the species system prompt and returns the bird's reply.
+    Calls Groq (llama-3.1-8b-instant) with the species system prompt and returns the bird's reply.
 
     history is a list of prior {role, content} message dicts so the bird
     remembers what it already said this session.
@@ -44,16 +44,15 @@ def get_bird_response(species_name, question, history=None):
     species = load_species(species_name)
     client = _get_client()
 
-    messages = history + [{'role': 'user', 'content': question}]
+    messages = [{'role': 'system', 'content': species['system-prompt']}] + history + [{'role': 'user', 'content': question}]
 
-    response = client.messages.create(
-        model='claude-haiku-4-5-20251001',
+    response = client.chat.completions.create(
+        model='llama-3.1-8b-instant',
         max_tokens=300,
-        system=species['system-prompt'],
         messages=messages,
     )
 
-    return response.content[0].text
+    return response.choices[0].message.content
 
 
 def list_species():
