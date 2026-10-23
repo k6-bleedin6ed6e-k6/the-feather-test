@@ -15,7 +15,7 @@ Built with Flask, Socket.IO, and the Groq API.
   before answering (parity with what the AI's system prompt gets — otherwise
   the human is improvising "generic bird" against an AI playing one specific,
   richly-detailed species, which isn't a fair test)
-- AI bird responds automatically via Groq (llama-3.1-8b-instant)
+- AI bird responds automatically via Groq (openai/gpt-oss-20b)
 - After 5 rounds, ornithologist guesses — reveal screen shows who fooled whom
 - Leaderboard tracks which species fools people most often
 
@@ -27,7 +27,7 @@ Crow · Raven · Robin · Pigeon · Parrot
 
 - Python / Flask
 - Flask-SocketIO (real-time chat)
-- Groq API (llama-3.1-8b-instant)
+- Groq API (openai/gpt-oss-20b)
 - SQLite (session + score persistence)
 - AWS EC2 (hosting) · Cloudflare (DNS + proxy)
 

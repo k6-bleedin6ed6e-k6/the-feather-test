@@ -57,7 +57,7 @@ def load_species(species_name):
 
 def get_bird_response(species_name, question, history=None):
     """
-    Calls Groq (llama-3.1-8b-instant) with the species system prompt and returns the bird's reply.
+    Calls Groq (openai/gpt-oss-20b) with the species system prompt and returns the bird's reply.
 
     history is a list of prior {role, content} message dicts so the bird
     remembers what it already said this session.
@@ -72,7 +72,7 @@ def get_bird_response(species_name, question, history=None):
     messages = [{'role': 'system', 'content': system_prompt}] + history + [{'role': 'user', 'content': question}]
 
     response = client.chat.completions.create(
-        model='llama-3.1-8b-instant',
+        model='openai/gpt-oss-20b',
         max_tokens=300,
         messages=messages,
     )
